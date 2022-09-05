@@ -30,4 +30,5 @@ def format_date(wild_date: date, format_type: str) -> str:
 def format_checked(checked: bool, name: str) -> str:
     return name if checked else ""
 
-def calculate_money(context: dict, dollar_rate:float, price:int ):
+
+
