@@ -1,6 +1,11 @@
 import os
+import sys
+
 from docxtpl import DocxTemplate
 from docx2pdf import convert
+from openpyxl import load_workbook
+from app import models_helper
+from num2words import num2words
 
 
 class DocumentMaker:
@@ -15,10 +20,11 @@ class DocumentMaker:
         self.__folder_path = path
         self.__make_folder()
         self.__render_docx()
+        self.__render_excel()
         return self.__folder_path
 
     def __make_folder(self):
-        self.__unique_name = self.__context['model'] + " " + self.__context['pib_buyer'] + " " + self.__context[
+        self.__unique_name = self.__context['shortname'] + " " + self.__context['pib_buyer'] + " " + self.__context[
             'settle_type'] + " " + self.__context['settle_name']
         self.__folder_path = self.__folder_path + '/' + self.__unique_name
         os.mkdir(self.__make_unique_folder_name())
@@ -29,14 +35,34 @@ class DocumentMaker:
         i = 1
         while os.path.exists(self.__folder_path + '_' + str(i)):
             i += 1
-        return self.__folder_path + '_' + str(i)
+        self.__folder_path = self.__folder_path + '_' + str(i)
+        return self.__folder_path
 
     def __render_docx(self):
         doc = DocxTemplate("templates/Template.docx")
+        self.__context['image'] = models_helper.get_model_image(doc, self.__context['model'])
         doc.render(self.__context)
-        document_name = self.__folder_path + '/' + self.__unique_name + ".docx"
+        document_name = self.__folder_path + '/' + "Д+с " + self.__unique_name + ".docx"
         doc.save(document_name)
-        convert(document_name)
+        if sys.platform in ("darwin", "win32"):
+            convert(document_name)
 
     def __render_excel(self):
-        pass
+        wb = load_workbook('templates/Template.xlsx')
+        ws = wb.active
+        number_and_date = " № " + self.__context['contract_date'] + '/' + str(
+            self.__context['contract_number']) + \
+                          " від " + self.__context['contract_date_ua'] + "р."
+        ws['B16'] = "Рахунок на оплату" + number_and_date
+        ws['I21'] = self.__context['pib_buyer']
+        ws['H24'] = number_and_date
+        ws['E28'] = self.__context['model']
+        ws['E28'] = self.__context['model']
+        true_price_10 = str(self.__context['true_price_10_uah'])
+        ws['AQ28'] = true_price_10
+        ws['AU28'] = true_price_10
+        ws['AU30'] = true_price_10
+        ws['B33'] = "Всього найменувань 1, на суму " + true_price_10 + " грн."
+        price_in_words = num2words(self.__context['true_price_10_uah'], lang='uk').split(' ')[0:-3]
+        ws['B34'] = num2words(self.__context['true_price_10_uah'], lang='uk') + " гривні 00 копійок"
+        wb.save(self.__folder_path + '/' + "рахунок " + self.__unique_name + ".xlsx")

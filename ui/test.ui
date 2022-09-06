@@ -321,39 +321,10 @@
      <attribute name="title">
       <string>Товар</string>
      </attribute>
-     <widget class="QLabel" name="label_14">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>60</y>
-        <width>91</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Тип товару</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="name">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>50</y>
-        <width>281</width>
-        <height>38</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Електроскутер</string>
-      </property>
-      <property name="placeholderText">
-       <string>Електроскутер</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_15">
       <property name="geometry">
        <rect>
-        <x>480</x>
+        <x>40</x>
         <y>60</y>
         <width>121</width>
         <height>24</height>
@@ -361,22 +332,6 @@
       </property>
       <property name="text">
        <string>Модель товару</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="model">
-      <property name="geometry">
-       <rect>
-        <x>610</x>
-        <y>50</y>
-        <width>141</width>
-        <height>38</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>ETB-122</string>
-      </property>
-      <property name="placeholderText">
-       <string>ETB-122</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_16">
@@ -643,6 +598,19 @@
        <bool>true</bool>
       </property>
      </widget>
+     <widget class="QComboBox" name="model">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>50</y>
+        <width>571</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -685,7 +653,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>140</y>
+        <y>120</y>
         <width>141</width>
         <height>24</height>
        </rect>
@@ -698,7 +666,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>290</y>
+        <y>310</y>
         <width>321</width>
         <height>21</height>
        </rect>
@@ -711,7 +679,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>220</y>
+        <y>190</y>
         <width>51</width>
         <height>24</height>
        </rect>
@@ -724,7 +692,7 @@
       <property name="geometry">
        <rect>
         <x>90</x>
-        <y>210</y>
+        <y>180</y>
         <width>161</width>
         <height>38</height>
        </rect>
@@ -746,7 +714,7 @@
       <property name="geometry">
        <rect>
         <x>180</x>
-        <y>130</y>
+        <y>110</y>
         <width>56</width>
         <height>38</height>
        </rect>
@@ -759,7 +727,7 @@
       <property name="geometry">
        <rect>
         <x>370</x>
-        <y>280</y>
+        <y>300</y>
         <width>131</width>
         <height>38</height>
        </rect>
@@ -792,13 +760,48 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>360</y>
+        <y>370</y>
         <width>711</width>
-        <height>81</height>
+        <height>71</height>
        </rect>
       </property>
       <property name="text">
        <string>Зробити папку з документами</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>250</y>
+        <width>241</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Термін відвантаження товару</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="unload">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>240</y>
+        <width>121</width>
+        <height>38</height>
+       </rect>
+      </property>
+      <property name="suffix">
+       <string> днів</string>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>2000</number>
+      </property>
+      <property name="value">
+       <number>100</number>
       </property>
      </widget>
     </widget>

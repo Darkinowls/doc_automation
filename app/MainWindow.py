@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
+from app import models_helper
 from app.components.ContextMaker import ContextMaker
 from app.components.DocumentMaker import DocumentMaker
 from ui.UiMainWindow import UiMainWindow
@@ -17,10 +18,10 @@ class MainWindow:
 
     def setupUi(self, main_window):
         self.__ui_main_window.setupUi(main_window)
+        models_helper.set_models(self.__ui_main_window.model)
         self.__ui_main_window.done_button.clicked.connect(self.__make_documents)
 
     def __make_documents(self):
-
         folder_path = QFileDialog.getExistingDirectory(
             None, "Виберіть папку для створення нової папки з документами")
         self.__document_maker = DocumentMaker(self.__context_maker.make_context())
