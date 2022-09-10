@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QDateEdit
 from datetime import date
-
 from babel.dates import format_datetime
 
 

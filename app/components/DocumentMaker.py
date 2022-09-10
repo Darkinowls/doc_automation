@@ -8,6 +8,7 @@ from app import models_helper
 from num2words import num2words
 
 
+
 class DocumentMaker:
     __context: dict
     __folder_path: str
@@ -63,6 +64,8 @@ class DocumentMaker:
         ws['AU28'] = true_price_10
         ws['AU30'] = true_price_10
         ws['B33'] = "Всього найменувань 1, на суму " + true_price_10 + " грн."
-        price_in_words = num2words(self.__context['true_price_10_uah'], lang='uk').split(' ')[0:-3]
-        ws['B34'] = num2words(self.__context['true_price_10_uah'], lang='uk') + " гривні 00 копійок"
+        price_in_words = num2words(self.__context['true_price_10_uah'], lang='uk')
+        price_in_words = price_in_words.replace(' нуль', '')
+        price_in_words = price_in_words.replace(' кома', '', 1)
+        ws['B34'] = price_in_words + " гривні 00 копійок"
         wb.save(self.__folder_path + '/' + "рахунок " + self.__unique_name + ".xlsx")

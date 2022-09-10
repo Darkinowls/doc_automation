@@ -16,6 +16,9 @@ class ContextMaker:
         self.__context['phone'] = self.__single_ui.phone.text()
         self.__context['pib_buyer_dots'] = format_pib(self.__single_ui.pib_buyer.text())
         self.__context['pib_buyer'] = self.__single_ui.pib_buyer.text()
+        pib_buyer_split = self.__single_ui.pib_buyer.text().split(' ')
+        self.__context['pib_buyer_dots'] = pib_buyer_split[0] + " " + pib_buyer_split[1][0] + ". " + pib_buyer_split[2][
+            0] + "."
         self.__context['pib_receiver'] = self.__single_ui.pib_receiver.text()
         self.__context['region'] = format_checked(self.__single_ui.region.text(),
                                                   self.__single_ui.region.text() + " обл.")

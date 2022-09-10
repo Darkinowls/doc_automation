@@ -20,4 +20,4 @@ def set_models(combo_box: QComboBox):
 
 
 def get_model_image(doc, name: str) -> InlineImage:
-    return InlineImage(doc, image_descriptor=MODEL_SRC + "/" + name + ".jpg", width=Mm(90), height=Mm(70))
+    return InlineImage(doc, image_descriptor=MODEL_SRC + "/" + name + ".jpg", width=Mm(105), height=Mm(90))
