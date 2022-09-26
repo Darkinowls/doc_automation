@@ -1,6 +1,6 @@
 import datetime
 import num2words
-from app.formatting_helper import format_checked, format_date, format_settle_type, format_pib
+from app.helpers.formatting_helper import format_checked, format_date, format_settle_type, format_pib
 from ui.UiMainWindow import UiMainWindow
 
 

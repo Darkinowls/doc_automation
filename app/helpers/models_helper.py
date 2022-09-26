@@ -2,6 +2,7 @@ import os
 from docxtpl import InlineImage
 from PyQt5.QtWidgets import QComboBox
 from docx.shared import Mm
+from docxtpl import DocxTemplate
 
 MODEL_SRC = "model_src"
 
@@ -19,5 +20,5 @@ def set_models(combo_box: QComboBox):
         combo_box.addItem(names[i][0:-4])
 
 
-def get_model_image(doc, name: str) -> InlineImage:
+def get_model_image(doc: DocxTemplate, name: str) -> InlineImage:
     return InlineImage(doc, image_descriptor=MODEL_SRC + "/" + name + ".jpg", width=Mm(105), height=Mm(90))

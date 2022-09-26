@@ -2,11 +2,10 @@ import os
 import sys
 
 from docxtpl import DocxTemplate
-from docx2pdf import convert
+import docx2pdf
 from openpyxl import load_workbook
-from app import models_helper
+from app.helpers import models_helper
 from num2words import num2words
-
 
 
 class DocumentMaker:
@@ -14,7 +13,7 @@ class DocumentMaker:
     __folder_path: str
     __unique_name: str
 
-    def __init__(self, context: dict, ):
+    def __init__(self, context: dict):
         self.__context = context
 
     def make_documents_in_folder(self, path: str) -> str:
@@ -41,19 +40,22 @@ class DocumentMaker:
 
     def __render_docx(self):
         doc = DocxTemplate("templates/Template.docx")
-        self.__context['image'] = models_helper.get_model_image(doc, self.__context['model'])
+        self.__set_to_context(doc)
         doc.render(self.__context)
         document_name = self.__folder_path + '/' + "Д+с " + self.__unique_name + ".docx"
         doc.save(document_name)
         if sys.platform in ("darwin", "win32"):
-            convert(document_name)
+            docx2pdf.convert(document_name)
+
+    def __set_to_context(self, doc):
+        self.__context['image'] = models_helper.get_model_image(doc, self.__context['model'])
 
     def __render_excel(self):
         wb = load_workbook('templates/Template.xlsx')
         ws = wb.active
-        number_and_date = " № " + self.__context['contract_date'] + '/' + str(
+        number_and_date: str = " № " + self.__context['contract_date'] + '/' + str(
             self.__context['contract_number']) + \
-                          " від " + self.__context['contract_date_ua'] + "р."
+                               " від " + self.__context['contract_date_ua'] + "р."
         ws['B16'] = "Рахунок на оплату" + number_and_date
         ws['I21'] = self.__context['pib_buyer']
         ws['H24'] = number_and_date
@@ -64,8 +66,8 @@ class DocumentMaker:
         ws['AU28'] = true_price_10
         ws['AU30'] = true_price_10
         ws['B33'] = "Всього найменувань 1, на суму " + true_price_10 + " грн."
-        price_in_words = num2words(self.__context['true_price_10_uah'], lang='uk')
-        price_in_words = price_in_words.replace(' нуль', '')
-        price_in_words = price_in_words.replace(' кома', '', 1)
+        price_in_words: str = num2words(self.__context['true_price_10_uah'], lang='uk')
+        price_in_words: str = price_in_words.replace(' нуль', '')
+        price_in_words: str = price_in_words.replace(' кома', '', 1)
         ws['B34'] = price_in_words + " гривні 00 копійок"
         wb.save(self.__folder_path + '/' + "рахунок " + self.__unique_name + ".xlsx")
